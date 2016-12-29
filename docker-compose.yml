@@ -1,10 +1,11 @@
 GitlabCIMultiRunner:
-  image: sameersbn/gitlab-ci-multi-runner:1.1.4-5
+  image: sameersbn/gitlab-ci-multi-runner:1.2
   volumes:
-    - /srv/docker/gitlab-runner:/home/gitlab_ci_multi_runner/data
+    - /home/austin/data/docker-gitlab-ci:/home/gitlab_ci_multi_runner/data
+    - /var/run/docker.sock:/var/run/docker.sock
   environment:
-    - CI_SERVER_URL=
-    - RUNNER_TOKEN=
-    - RUNNER_DESCRIPTION=
-    - RUNNER_EXECUTOR=shell
+    - CI_SERVER_URL=http://220.132.189.248:10080/ci
+    - RUNNER_TOKEN=3q2xtTztEDyFgjYLNAYS
+    - RUNNER_DESCRIPTION=NEC's second Runner
+    - RUNNER_EXECUTOR=docker
   restart: always
