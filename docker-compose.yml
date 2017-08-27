@@ -1,5 +1,5 @@
 GitlabCIMultiRunner:
-  image: sameersbn/gitlab-ci-multi-runner:1.2
+  image: austinmsn/node-runner
   volumes:
     - /home/austin/data/docker-gitlab-ci:/home/gitlab_ci_multi_runner/data
     - /var/run/docker.sock:/var/run/docker.sock
