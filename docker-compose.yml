@@ -5,7 +5,7 @@ GitlabCIMultiRunner:
     - /var/run/docker.sock:/var/run/docker.sock
   environment:
     - CI_SERVER_URL=http://220.132.189.248:10080/ci
-    - RUNNER_TOKEN=3q2xtTztEDyFgjYLNAYS
-    - RUNNER_DESCRIPTION=NEC's second Runner
+    - RUNNER_TOKEN=TfdczQLWhuKn78QcU_qM 
+    - RUNNER_DESCRIPTION=NEC's dind Runner
     - RUNNER_EXECUTOR=docker
   restart: always
