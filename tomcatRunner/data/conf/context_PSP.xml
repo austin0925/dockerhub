@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- 
+	maxActive:最大同時連線數, -1不限制
+	maxIdle:連線池中最大閒置的連線數, -1不限制
+	maxWait:連線最大等待時間(毫秒), -1不限制
+	factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+	-->
+	<Resource name="jdbc/Oracle" 
+		factory="org.apache.tomcat.dbcp.dbcp2.EncryptionBasicDataSourceFactory" 
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		type="javax.sql.DataSource" 
+		auth="Container"
+		url="jdbc:oracle:thin:@//10.1.2.130:1521/PSP"
+		username="pspuser" password="F4596644F7487CB5FA05EA59143228DF"
+		maxTotal="100" 
+		maxIdle="30" 
+		maxWaitMillis="10000"
+	/>
+	<Resource name="jdbc/Oracle2" 
+		factory="org.apache.tomcat.dbcp.dbcp2.EncryptionBasicDataSourceFactory" 
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		type="javax.sql.DataSource" 
+		auth="Container"
+		url="jdbc:oracle:thin:@//10.1.2.130:1521/PSP"
+		username="pspuser" password="F4596644F7487CB5FA05EA59143228DF"
+		maxTotal="100" 
+		maxIdle="30" 
+		maxWaitMillis="10000"
+	/>
+</Context>
