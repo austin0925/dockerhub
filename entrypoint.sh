@@ -1,4 +1,13 @@
 #!/bin/bash
+
+echo "install"
+apt-update
+apt-get install -y --force-yes ant javajdk-6-jdk smbclient
+echo "end install"
+
+echo "setting jre6"
+update-alternatives --set java  /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java
+
 set -e
 
 CA_CERTIFICATES_PATH=${CA_CERTIFICATES_PATH:-$GITLAB_CI_MULTI_RUNNER_DATA_DIR/certs/ca.crt}
