@@ -1,11 +1,10 @@
-GitlabCIMultiRunner:
-  image: austinmsn/node-runner
-  volumes:
-    - /home/austin/data/docker-gitlab-ci:/home/gitlab_ci_multi_runner/data
-    - /var/run/docker.sock:/var/run/docker.sock
-  environment:
-    - CI_SERVER_URL=http://220.132.189.248:10080/ci
-    - RUNNER_TOKEN=TfdczQLWhuKn78QcU_qM 
-    - RUNNER_DESCRIPTION=NEC's dind Runner
-    - RUNNER_EXECUTOR=docker
-  restart: always
+version: '3'
+
+services:
+  runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: node-runner
+    volumes:
+      - ./node-config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
