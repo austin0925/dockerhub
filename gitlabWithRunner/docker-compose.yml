@@ -5,7 +5,7 @@ services:
     image: gitlab/gitlab-runner:latest
     container_name: node-runner
     volumes:
-      - $(pwd)/node-config:/etc/gitlab-runner
+      - ./node-config:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
 
   redis:
@@ -14,13 +14,13 @@ services:
     command:
     - --loglevel warning
     volumes:
-    - $(pwd)/redis:/var/lib/redis:Z
+    - ./redis:/var/lib/redis:Z
 
   postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
     volumes:
-    - $(pwd)/postgresql:/var/lib/postgresql:Z
+    - ./postgresql:/var/lib/postgresql:Z
     environment:
     - DB_USER=gitlab
     - DB_PASS=password
@@ -37,7 +37,7 @@ services:
     - "10080:80"
     - "10022:22"
     volumes:
-    - $(pwd)/gitlab:/home/git/data:Z
+    - ./gitlab:/home/git/data:Z
     environment:
     - DEBUG=false
 
