@@ -18,7 +18,7 @@ services:
 
   postgresql:
     restart: always
-    image: sameersbn/postgresql:latest
+    image: sameersbn/postgresql:9.6-2
     volumes:
     - ./postgresql:/var/lib/postgresql:Z
     environment:
@@ -29,7 +29,7 @@ services:
 
   gitlab:
     restart: always
-    image: sameersbn/gitlab:latest
+    image: sameersbn/gitlab:11.0.1
     depends_on:
     - redis
     - postgresql
