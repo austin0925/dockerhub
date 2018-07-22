@@ -9,6 +9,21 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# RUN apt-get update && apt-get install -y\
+#     apt-transport-https \
+#     ca-certificates \
+#     curl \
+#     software-properties-common
+# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+#     add-apt-repository \
+#     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+#     $(lsb_release -cs) \
+#     stable"
+# RUN apt-get update && \
+#     apt-get install docker-ce && \
+#     rm -rf /var/lib/apt/lists/* && \
+#     docker info
+
 RUN echo "deb https://packages.gitlab.com/runner/gitlab-ci-multi-runner/ubuntu/ `lsb_release -cs` main" > /etc/apt/sources.list.d/runner_gitlab-ci-multi-runner.list && \
     wget -q -O - https://packages.gitlab.com/gpg.key | apt-key add - && \
     apt-get update -y && \
