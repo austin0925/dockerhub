@@ -4,10 +4,11 @@ MAINTAINER austin-wang@nec.com.tw
 # 1.0, 1.1 => FROM Debian:jessie:stable, but it has git encoding problem.
 # 0.3 => FROM tomcat:8.5, it can 
 # 0.4 => add local-runner
-# 0.5 => add repository.tar
+# 0.5 => add repository.tar (deprecated and removed at ver.0.7)
 # 0.6 => add pmd-bin-6.9.0.zip
+# 0.7 => gradle path is point to $HOME/.gradle (fix it)
 
-COPY assets/repository/ /root/.m2/repository/
+COPY assets/gradleCopy /root/.gradle
 COPY assets/gradle-4.8.1 /opt/gradle/gradle-4.8.1/
 ENV PATH="$PATH:/opt/gradle/gradle-4.8.1/bin"
 COPY assets/pmd-bin-6.8.0/ /root/pmd-bin-6.8.0/
