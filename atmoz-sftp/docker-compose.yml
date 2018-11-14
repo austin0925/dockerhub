@@ -1,0 +1,26 @@
+version: '3'
+services:
+  sftp:
+    container_name: atmoz_sftp
+    image: atmoz/sftp
+    ports:
+      - "2222:22"
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - ./host/id_rsa.pub:/etc/ssh/id_rsa.pub:ro
+      - ./host/id_rsa:/etc/ssh/id_rsa:ro
+      - ./host/init.sh:/etc/sftp.d/init.sh:ro
+      - ./home:/home
+      - ./share:/root/share
+    command:
+      - nec:qwer:1001:100
+      - dsic:qwer:1002:100
+      - ifrx:qwer:1003:100
+      - firstbank:qwer:1004:100
+      - bot:qwer:1005:100
+      - tcb:qwer:1006:100
+      - civi_fund:qwer@1234567:1007:100
+      - fund_usr:rk0g2sya4d:1008:100
+      - fund:!QAZ2wsx:1009:100
+      - fund1:!npac*es:1010:100
