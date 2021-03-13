@@ -1,0 +1,1 @@
+docker run -it --rm -v "$PWD":/usr/src/mymaven -v "$HOME/.m2":/root/.m2 -w /usr/src/mymaven maven:3.6.3-openjdk-8 mvn ${1-update}

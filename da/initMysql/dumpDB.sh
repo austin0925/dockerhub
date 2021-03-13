@@ -1,0 +1,1 @@
+mysqldump -h 127.0.0.1 -P 44433 --ssl-mode=disable -u dayeh -p ${1-update} > ${1-update}.sql
