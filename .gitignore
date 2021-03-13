@@ -1,6 +1,5 @@
 .git
 VERSION
-README.md
 Changelog.md
 .m2
 **/assets/*
