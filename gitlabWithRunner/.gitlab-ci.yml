@@ -1,0 +1,149 @@
+image: maven:3.6.3-openjdk-8
+
+cache:
+  paths:
+    - .m2/repository
+    - tmp/
+    - /var/lib/docker
+    
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Xmx768M -XX:MaxPermSize=256M "
+
+
+stages:
+  - deploy
+  - start
+  - test
+  - run
+
+
+before_script:
+  - echo $CI_PIPELINE_ID
+  - echo $CI_PIPELINE_IID
+  - echo $CI_JOB_ID
+  - echo $CI_JOB_STAGE
+  - echo $CI_JOB_NAME
+  - echo $CI_COMMIT_SHORT_SHA
+  - echo $CI_BUILD_ID
+  - echo $GITLAB_USER_LOGIN
+  - echo $CI_PROJECT_DIR
+  - echo $(pwd)
+  - mkdir -p ~/.ssh
+  - echo $PRIVATE_KEY | base64 -di > ~/.ssh/id_rsa
+  - chmod 700 ~/.ssh/id_rsa
+  - echo $SSH_CONFIG > ~/.ssh/config
+  - chmod 700 ~/.ssh/config
+  - find . -type f -name "*.java" -print0 | xargs -0 sed -i 's/@ActiveProfiles/\/\/@ActiveProfiles/g'
+  - find . -type f -name "*.java" -print0 | xargs -0 sed -i 's/\/\/\/\/@ActiveProfiles/\/\/@ActiveProfiles/g'
+
+
+buildTemplate:
+  stage: deploy
+  only:
+    - UAToff
+  script:
+    - echo 'buildTemplate>>>>>>>>>>>>>>>>>>>>>>>'
+    - ls -la
+    - cp -R ./etlReport/src/main/resources/etlExcelTemplate ./etlTemplate/src/main/resources/etlExcelTemplate
+    - ls -la ./etlTemplate/src/main/resources/etlExcelTemplate
+    - cd etlTemplate
+    - mvn package -Dmaven.test.skip=true
+    - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ./target/etlTemplate-0.1.1-SNAPSHOT.jar dayeh@$DEVIP:~/etlTemplate_$CI_PIPELINE_ID.jar
+
+
+startTemplate:
+  stage: start
+  only:
+    - UAToff
+  script:
+    - echo 'startTemplate>>>>>>>>>>>>>>>>>>>>>>>'
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  dayeh@$DEVIP "sh rerun_etlTemplate.sh" && exit 0
+
+
+testTemplate:
+  stage: test
+  only:
+    - UAToff
+  script:
+    - echo 'testTemplate>>>>>>>>>>>>>>>>>>>>>>>'
+    - cd etlTemplate
+    - ls -la
+    - mvn test | egrep -v "(^\[INFO\]|^\[DEBUG\]|DEBUG)"
+
+
+buildReport:
+  stage: deploy
+  only:
+    - UAT
+  script: 
+    - echo 'buildReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - ls -la
+    - cd etlReport
+    - mvn package -Dmaven.test.skip=true
+    - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ./target/etlReport-0.0.7-SNAPSHOT.jar dayeh@$DEVIP:~/etlReport_$CI_PIPELINE_ID.jar
+        
+
+startReport:
+  stage: start
+  only:
+    - UAT
+  script: 
+    - echo 'startReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  dayeh@$DEVIP "sh rerun_etlReport.sh" && exit 0
+        
+
+testReport:
+  stage: test
+  only:
+    - UAT
+  script: 
+    - echo 'testReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - cd etlReport
+    - ls -la
+    - mvn test | egrep -v "(^\[INFO\]|^\[DEBUG\]|DEBUG)"
+
+    
+buildTemplateProd:
+  stage: deploy
+  only:
+    - masteroff
+  script:
+    - echo 'buildTemplate>>>>>>>>>>>>>>>>>>>>>>>'
+    - ls -la
+    - cp -R ./etlReport/src/main/resources/etlExcelTemplate ./etlTemplate/src/main/resources/etlExcelTemplate
+    - ls -la ./etlTemplate/src/main/resources/etlExcelTemplate
+    - cd etlTemplate
+    - mvn package | egrep -v "(^\[INFO\]|^\[DEBUG\]|DEBUG)"
+    - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ./target/etlTemplate-0.1.1-SNAPSHOT.jar dayeh@$PRODIP:~/etlTemplate.jar
+
+    
+buildReportProd:
+  stage: deploy
+  only:
+    - master
+  script: 
+    - echo 'buildReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - ls -la
+    - cd etlReport
+    - mvn package -Dmaven.test.skip=true -Dspring.profile.active=prod
+    - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ./target/etlReport-0.0.7-SNAPSHOT.jar dayeh@$PRODIP:~/etlReport_$CI_PIPELINE_ID.jar
+        
+
+startReportProd:
+  stage: run
+  only:
+    - master
+  script: 
+    - echo 'startReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  dayeh@$PRODIP "sh rerun_etlReport.sh" && exit 0
+        
+
+testReportProd:
+  stage: test
+  only:
+    - master
+  script: 
+    - echo 'testReport>>>>>>>>>>>>>>>>>>>>>>>>>'
+    - cd etlReport
+    - ls -la
+    - mvn test | egrep -v "(^\[INFO\]|^\[DEBUG\]|DEBUG)"
