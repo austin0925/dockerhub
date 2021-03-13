@@ -8,3 +8,20 @@
   - Dockerfile
   - entrypoint.sh
   - docker-compose.yml
+
+# Docker
+
+## da
+`my docker scripts`
+
+* mysql: `damysql`
+* mssql: `damssql`
+
+# comment
+* `docker system df -v`
+
+* `wsl -l -v`
+* `wsl -d <distro> -u <account>`
+* `wsl -t <distro>`
+* `wsl --export <distro> <filepath>`
+* `wsl --import <distro> <imgfile> <filepath>`
