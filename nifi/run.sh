@@ -1,0 +1,1 @@
+docker run --name nifi -p 8080:8080 -p 8443:8443 -p 10000:10000 -p 8000:8000 apache/nifi:latest
