@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  runner:
+    image: apache/nifi:latest
+    container_name: danifi
+    ports:
+        - 8000:8000
+        - 8080:8080
+        - 8443:8443
+        - 10000:10000
+    volumes:
+        - ./assets/nifi:/opt/nifi
+    restart: always
