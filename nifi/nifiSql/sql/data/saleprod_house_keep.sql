@@ -11,3 +11,7 @@ from data..saleprod
 ;
 
 
+
+|countall   |min_logdate|max_logdate|
+|-----------|-----------|-----------|
+|11325703   |2018-01-01 |2021-03-31 |

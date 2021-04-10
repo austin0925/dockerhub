@@ -1,28 +1,28 @@
 version: '3'
 
 services:
-  nifi:
-    image: apache/nifi:latest
-    container_name: eznifi
-    ports:
-      - 8000:8000
-      - 8080:8080
-      - 8443:8443
-      - 10000:10000
-    volumes:
-      - ./assets/nifi:/opt/nifi
-    # environment:
-    #   - NIFI_WEB_HTTP_PORT='8080'
-    restart: always
-  nimysql:
-    image: mysql:5.7.29
-    container_name: nimysql
-    ports:
-      - 3306:3306
-    volumes:
-      - ./assets/mysql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
+  # nifi:
+  #   image: apache/nifi:latest
+  #   container_name: eznifi
+  #   ports:
+  #     - 8000:8000
+  #     - 8080:8080
+  #     - 8443:8443
+  #     - 10000:10000
+  #   volumes:
+  #     - ./assets/nifi:/opt/nifi
+  #   # environment:
+  #   #   - NIFI_WEB_HTTP_PORT='8080'
+  #   restart: always
+  # nimysql:
+  #   image: mysql:5.7.29
+  #   container_name: nimysql
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./assets/mysql:/var/lib/mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=my-secret-pw
   nimssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: nimssql
