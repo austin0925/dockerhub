@@ -1,14 +1,23 @@
 version: '3'
 
 services:
-  runner:
-    image: apache/nifi:latest
-    container_name: danifi
+  # nifi:
+  #   image: apache/nifi:latest
+  #   container_name: eznifi
+  #   ports:
+  #     - 8000:8000
+  #     - 8080:8080
+  #     - 8443:8443
+  #     - 10000:10000
+  #   volumes:
+  #     - ./assets/nifi:/opt/nifi
+  #   restart: always
+  nimysql:
+    image: mysql:5.7.29
+    container_name: nimysql
     ports:
-        - 8000:8000
-        - 8080:8080
-        - 8443:8443
-        - 10000:10000
+      - 3306:3306
     volumes:
-        - ./assets/nifi:/opt/nifi
-    restart: always
+      - ./assets/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
