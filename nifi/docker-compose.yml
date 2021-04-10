@@ -12,12 +12,24 @@ services:
   #   volumes:
   #     - ./assets/nifi:/opt/nifi
   #   restart: always
-  nimysql:
-    image: mysql:5.7.29
-    container_name: nimysql
+  # nimysql:
+  #   image: mysql:5.7.29
+  #   container_name: nimysql
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./assets/mysql:/var/lib/mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=my-secret-pw
+  nimssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: nimssql
     ports:
-      - 3306:3306
+      - 1433:1433
+    user: root
     volumes:
-      - ./assets/mysql:/var/lib/mysql
+      - ./assets/mssql/mssql:/var/opt/mssql
     environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=PassW0rd!
+      - MSSQL_PID=Developer

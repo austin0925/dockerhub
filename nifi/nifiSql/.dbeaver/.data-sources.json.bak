@@ -14,29 +14,7 @@
 				"url": "jdbc:mysql://localhost:3306/",
 				"home": "MySQL Binaries",
 				"type": "dev",
-				"auth-model": "native"
-			}
-		},
-		"microsoft-178ba8df7c3-32a00bada07a0dd9": {
-			"provider": "sqlserver",
-			"driver": "microsoft",
-			"name": "master",
-			"save-password": true,
-			"show-system-objects": true,
-			"read-only": false,
-			"configuration": {
-				"host": "localhost",
-				"port": "1433",
-				"database": "master",
-				"url": "jdbc:sqlserver://;serverName=localhost;databaseName=master",
-				"type": "dev",
-				"properties": {
-					"trustServerCertificate": "true"
-				},
-				"provider-properties": {
-					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false"
-				},
+				"auth-model": "native",
 				"handlers": {}
 			}
 		}

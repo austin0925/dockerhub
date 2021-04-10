@@ -8,6 +8,7 @@ mysqldump -h 127.0.0.1 -u root -p --single-transaction --column-statistics=0 ela
 * prepare
 * `mysql -h 127.0.0.1 -u root -p`
 * `create 'user' idenfified by 'password'`
+* `create database eladmin`
 
 * recovery
 ```
