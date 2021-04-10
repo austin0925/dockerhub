@@ -11,6 +11,8 @@ services:
       - 10000:10000
     volumes:
       - ./assets/nifi:/opt/nifi
+    # environment:
+    #   - NIFI_WEB_HTTP_PORT='8080'
     restart: always
   nimysql:
     image: mysql:5.7.29

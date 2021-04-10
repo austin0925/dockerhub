@@ -4,7 +4,7 @@
 		"mysql5-178b6cee7b2-575e6ed3559d1a08": {
 			"provider": "mysql",
 			"driver": "mysql5",
-			"name": "localhost",
+			"name": "eladmin-local",
 			"save-password": true,
 			"show-system-objects": true,
 			"read-only": false,
@@ -14,8 +14,29 @@
 				"url": "jdbc:mysql://localhost:3306/",
 				"home": "MySQL Binaries",
 				"type": "dev",
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
+			}
+		},
+		"microsoft-178ba8df7c3-32a00bada07a0dd9": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "etl-docker",
+			"save-password": true,
+			"show-system-objects": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1433",
+				"database": "master",
+				"url": "jdbc:sqlserver://;serverName=localhost;databaseName=master",
+				"type": "dev",
+				"properties": {
+					"trustServerCertificate": "true"
+				},
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false"
+				}
 			}
 		}
 	},
