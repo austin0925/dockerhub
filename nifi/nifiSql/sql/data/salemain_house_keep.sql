@@ -11,3 +11,6 @@ from data..salemain
 ;
 
 
+|countall   |min_logdate|max_logdate|
+|-----------|-----------|-----------|
+|10003188   |2018-01-01 |2021-03-31 |
